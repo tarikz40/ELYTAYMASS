@@ -596,7 +596,7 @@
 
       <div class="contact-detail">
         <strong>Email</strong>
-        <a href="/cdn-cgi/l/email-protection#3b4f5a495250155e57424f5a42565a48487b5c565a525715585456"><span class="__cf_email__" data-cfemail="7d091c0f141653181104091c04101c0e0e3d1a101c1411531e1210">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#dfabbeadb6b4f1bab3a6abbea6b2beacac9fb8b2beb6b3f1bcb0b2"><span class="__cf_email__" data-cfemail="265247544f4d08434a5f52475f4b47555566414b474f4a0845494b">[email&#160;protected]</span></a>
       </div>
       <div class="contact-detail">
         <strong>WhatsApp / Téléphone</strong>
@@ -609,8 +609,8 @@
       </div>
     </div>
 
-    <form class="contact-form" id="contact-form" name="contact-v2">
-      <input type="hidden" name="form-name" value="contact-v2" />
+    <form class="contact-form" id="contact-form-elytaymass" name="contact-v2">
+      <!-- Form inputs -->
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
         <div class="form-group">
           <label>Votre nom ou entreprise</label>
@@ -718,40 +718,77 @@ if (leadMagnetForm) {
   });
 }
 
-// Formulaire contact
-const contactForm = document.querySelector('form[name="contact-v2"]');
+// Formulaire contact - Envoi vers Make
+const contactForm = document.getElementById('contact-form-elytaymass');
 if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
+  contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
+    
     const btn = e.target.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
     btn.textContent = 'Envoi en cours...';
     btn.disabled = true;
     
     // Récupérer les données du formulaire
-    const formData = new FormData(e.target);
+    const formData = {
+      nom: e.target.nom.value,
+      telephone: e.target.telephone.value,
+      email: e.target.email.value,
+      besoin: e.target.besoin.value,
+      message: e.target.message.value,
+      timestamp: new Date().toISOString()
+    };
     
-    // Envoi vers Make webhook
-    fetch('https://hook.eu1.make.com/7nq4zdof1t5pos5168cub8jxsoc8v8ma', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
+    try {
+      const response = await fetch('https://hook.eu1.make.com/gj4blg8oqrpx8rqbu39v93dku0qlvs0j', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      
       if (response.ok) {
         btn.textContent = '✓ Message envoyé !';
         btn.style.background = '#10b981';
         e.target.reset();
+        
         setTimeout(() => {
           btn.textContent = originalText;
           btn.style.background = '';
           btn.disabled = false;
-        }, 3000);
+        }, 4000);
       } else {
         throw new Error('Erreur serveur');
       }
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error('Erreur:', error);
-      alert("Erreur lors de l'envoi. Merci de réessayer ou contactez-moi par téléphone.");
+      alert("Erreur lors de l'envoi. Merci de me contacter directement par téléphone : 07 70 02 98 25");
       btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  });
+}
+
+// Formulaire lead magnet reste inchangé
+const leadMagnetForm = document.getElementById('lead-magnet-form');
+if (leadMagnetForm) {
+  leadMagnetForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('lm-submit-btn');
+    btn.textContent = 'Envoi en cours...';
+    btn.disabled = true;
+    fetch('/', {
+      method: 'POST',
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(e.target)).toString()
+    })
+    .then(() => {
+      e.target.classList.add('hidden');
+      document.querySelector('.lm-result-box').classList.add('hidden');
+      document.getElementById('lm-success-msg').classList.remove('hidden');
+    })
+    .catch(() => {
+      alert("Erreur lors de l'envoi. Merci de réessayer.");
+      btn.textContent = "Recevoir mon diagnostic";
       btn.disabled = false;
