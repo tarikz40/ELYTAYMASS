@@ -718,6 +718,9 @@ if (leadMagnetForm) {
   });
 }
 
+// Attendre que la page soit complètement chargée
+document.addEventListener('DOMContentLoaded', function() {
+  
 // Formulaire contact - Envoi vers Make
 const contactForm = document.getElementById('contact-form-elytaymass');
 if (contactForm) {
@@ -769,6 +772,8 @@ if (contactForm) {
     }
   });
 }
+
+}); // Fin DOMContentLoaded
 
 // Formulaire lead magnet reste inchangé
 const leadMagnetForm = document.getElementById('lead-magnet-form');
