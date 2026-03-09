@@ -717,69 +717,75 @@ if (leadMagnetForm) {
   });
 }
 
-// Formulaire contact - Version ultra-simple qui fonctionne
+// Formulaire contact - FIX timing avec setTimeout
 window.addEventListener('load', function() {
-  console.log('✓ Page chargée, initialisation du formulaire contact');
+  console.log('✓ Page chargée, attente DOM complet...');
   
-  const contactForm = document.getElementById('contact-form-elytaymass');
-  
-  if (!contactForm) {
-    console.error('❌ Formulaire contact non trouvé');
-    return;
-  }
-  
-  console.log('✓ Formulaire contact trouvé');
-  
-  contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    console.log('✓ Formulaire soumis');
+  // Attendre que TOUT soit vraiment chargé
+  setTimeout(function() {
+    console.log('✓ Recherche du formulaire contact...');
     
-    const btn = contactForm.querySelector('button[type="submit"]');
-    const originalText = btn.textContent;
+    const contactForm = document.getElementById('contact-form-elytaymass');
     
-    btn.textContent = 'Envoi en cours...';
-    btn.disabled = true;
+    if (!contactForm) {
+      console.error('❌ Formulaire contact non trouvé');
+      console.log('Formulaires disponibles:', document.querySelectorAll('form'));
+      return;
+    }
     
-    const formData = {
-      nom: contactForm.querySelector('[name="nom"]').value,
-      telephone: contactForm.querySelector('[name="telephone"]').value,
-      email: contactForm.querySelector('[name="email"]').value,
-      besoin: contactForm.querySelector('[name="besoin"]').value,
-      message: contactForm.querySelector('[name="message"]').value,
-      date: new Date().toLocaleString('fr-FR')
-    };
+    console.log('✓ Formulaire contact trouvé !', contactForm);
     
-    console.log('📤 Envoi des données vers Make:', formData);
-    
-    fetch('https://hook.eu1.make.com/gj4blg8oqrpx8rqbu39v93dku0qlvs0j', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(function(response) {
-      console.log('📥 Réponse reçue:', response.status);
-      if (response.ok) {
-        console.log('✓ Succès !');
-        btn.textContent = '✓ Message envoyé !';
-        btn.style.background = '#10b981';
-        contactForm.reset();
-        
-        setTimeout(function() {
-          btn.textContent = originalText;
-          btn.style.background = '';
-          btn.disabled = false;
-        }, 4000);
-      } else {
-        throw new Error('Erreur serveur: ' + response.status);
-      }
-    })
-    .catch(function(error) {
-      console.error('❌ Erreur:', error);
-      alert('Erreur lors de l\'envoi. Merci de me contacter directement par téléphone : 07 70 02 98 25');
-      btn.textContent = originalText;
-      btn.disabled = false;
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      console.log('✓ Formulaire soumis');
+      
+      const btn = contactForm.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      
+      btn.textContent = 'Envoi en cours...';
+      btn.disabled = true;
+      
+      const formData = {
+        nom: contactForm.querySelector('[name="nom"]').value,
+        telephone: contactForm.querySelector('[name="telephone"]').value,
+        email: contactForm.querySelector('[name="email"]').value,
+        besoin: contactForm.querySelector('[name="besoin"]').value,
+        message: contactForm.querySelector('[name="message"]').value,
+        date: new Date().toLocaleString('fr-FR')
+      };
+      
+      console.log('📤 Envoi des données vers Make:', formData);
+      
+      fetch('https://hook.eu1.make.com/gj4blg8oqrpx8rqbu39v93dku0qlvs0j', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(function(response) {
+        console.log('📥 Réponse reçue:', response.status);
+        if (response.ok) {
+          console.log('✓ Succès !');
+          btn.textContent = '✓ Message envoyé !';
+          btn.style.background = '#10b981';
+          contactForm.reset();
+          
+          setTimeout(function() {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 4000);
+        } else {
+          throw new Error('Erreur serveur: ' + response.status);
+        }
+      })
+      .catch(function(error) {
+        console.error('❌ Erreur:', error);
+        alert('Erreur lors de l\'envoi. Merci de me contacter directement par téléphone : 07 70 02 98 25');
+        btn.textContent = originalText;
+        btn.disabled = false;
+      });
     });
-  });
+  }, 500); // Attendre 500ms que le DOM soit vraiment prêt
 });
