@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><!-- v2.1 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ELYTAYMASS — Création de Sites Web pour Artisans & PME — Gers & Landes</title>
+<meta name="description" content="Création de sites internet pour artisans, commerçants et PME dans le Gers et les Landes. Site vitrine dès 350€, livré en 5 jours. Automatisation Make.com pour PME.">
+<meta name="keywords" content="création site internet artisan, site web Gers, site web Landes, plombier site internet, électricien site web, Nogaro, automatisation Make.com, freelance web Gers">
+
+<meta property="og:title" content="ELYTAYMASS — Sites Web Artisans & Automatisation PME">
+<meta property="og:description" content="Site vitrine professionnel dès 350€, livré en 5 jours. Gers & Landes. Automatisation Make.com pour PME.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://elytaymass.netlify.app/">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0c'/%3E%3Cpath d='M30 28 h40 v11 h-28 v10 h20 v11 h-20 v11 h28 v11 h-40 z' fill='%23ff5500'/%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-main: #0a0a0c;
+    --surface: #141417;
+    --surface-light: #1f1f24;
+    --text-main: #fcfcfc;
+    --text-muted: #a1a1aa;
+    --accent: #ff5500;
+    --accent-soft: rgba(255, 85, 0, 0.1);
+    --border: #27272a;
+    --green: #10b981;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, .font-display { font-family: 'Syne', sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .logo-icon { width: 24px; height: 24px; }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+  nav ul a {
+    font-size: 0.9rem; font-weight: 500;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--text-main); }
+  .nav-cta {
+    background: var(--accent); color: var(--text-main) !important;
+    padding: 0.5rem 1.2rem; border-radius: 4px;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: #e04a00; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; border-radius: 4px;
+    transition: all 0.2s; cursor: pointer; border: none; text-align: center;
+  }
+  .btn-primary { background: var(--accent); color: var(--text-main); }
+  .btn-primary:hover { background: #e04a00; transform: translateY(-2px); }
+  .btn-outline { border: 1px solid var(--border); color: var(--text-main); background: var(--surface); }
+  .btn-outline:hover { border-color: var(--text-muted); }
+  .btn-light { background: var(--text-main); color: var(--bg-main); }
+  .btn-light:hover { background: #e5e5e5; }
+  .btn-ghost { border: 1px solid var(--accent); color: var(--accent); background: transparent; }
+  .btn-ghost:hover { background: var(--accent-soft); }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+    display: block;
+  }
+  .section-title {
+    font-weight: 700; font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .section-sub {
+    font-size: 1.05rem; color: var(--text-muted);
+    max-width: 600px; line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 92vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 8rem; padding-left: 4rem; padding-right: 4rem;
+    position: relative;
+  }
+  .hero-content { max-width: 820px; margin: 0 auto; text-align: center; }
+  .hero h1 {
+    font-weight: 700; font-size: clamp(2.6rem, 5vw, 4.2rem);
+    line-height: 1.08; letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub {
+    font-size: 1.15rem; font-weight: 400; color: var(--text-muted);
+    max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7;
+  }
+  .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+  .hero-badges {
+    display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    align-items: center; color: var(--text-muted); font-size: 0.85rem;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.4rem 1rem; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 20px; font-weight: 500;
+  }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    margin-top: 4.5rem; max-width: 900px; margin-left: auto; margin-right: auto;
+  }
+  .stat-box { padding: 2rem; text-align: center; border-right: 1px solid var(--border); }
+  .stat-box:last-child { border-right: none; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
+
+  /* ── POUR QUI ── */
+  .targets-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
+  }
+  .target-card {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 2rem; border-radius: 8px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .target-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .target-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .target-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .target-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── SERVICES WEB ── */
+  .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    font-size: 1rem; color: var(--text-muted);
+    padding: 1rem; background: var(--surface); border-radius: 6px; border: 1px solid var(--border);
+  }
+  .feature-list li .check { color: var(--accent); font-weight: bold; flex-shrink: 0; }
+
+  /* ── AUTOMATISATION ── */
+  .auto-section { background: var(--surface); }
+  .auto-inner {
+    max-width: 900px; margin: 0 auto;
+    background: var(--surface-light); border: 1px solid var(--border);
+    border-radius: 12px; padding: 3.5rem; position: relative; overflow: hidden;
+  }
+  .auto-inner::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), #ff8844);
+  }
+  .auto-tag {
+    display: inline-block; background: var(--accent-soft); color: var(--accent);
+    padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.8rem;
+    font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1.5rem;
+  }
+  .auto-inner h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); margin-bottom: 1rem; }
+  .auto-inner > p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; max-width: 650px; }
+  .auto-features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;
+  }
+  .auto-feature {
+    background: var(--bg-main); border: 1px solid var(--border);
+    padding: 1.2rem; border-radius: 6px;
+  }
+  .auto-feature strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .auto-feature span { font-size: 0.85rem; color: var(--text-muted); }
+  .auto-cta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .auto-note { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* ── LEAD MAGNET ── */
+  .lead-magnet { text-align: center; }
+  .lm-container {
+    max-width: 620px; margin: 0 auto; background: var(--surface);
+    padding: 3rem; text-align: left; border-radius: 8px; border: 1px solid var(--border);
+  }
+  .lm-question { margin-bottom: 1.5rem; }
+  .lm-question label { display: block; font-size: 0.95rem; font-weight: 500; margin-bottom: 0.8rem; color: var(--text-main); }
+  .lm-input, .lm-select {
+    width: 100%; padding: 0.9rem; border: 1px solid var(--border); border-radius: 4px;
+    background: var(--bg-main); color: var(--text-main); font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+  }
+  .lm-input:focus, .lm-select:focus { border-color: var(--accent); }
+  .lm-btn { width: 100%; }
+  .lm-result-box {
+    border-left: 3px solid var(--accent); padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem; background: var(--surface-light); border-radius: 0 4px 4px 0;
+  }
+  .lm-result-text { font-size: 0.95rem; line-height: 1.6; }
+  .form-row-lm { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .hidden { display: none !important; }
+
+  /* ── RGPD ── */
+  .rgpd-checkbox-container { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .rgpd-checkbox-container input[type="checkbox"] { width: auto; margin-top: 0.3rem; cursor: pointer; flex-shrink: 0; }
+  .rgpd-checkbox-container label { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; cursor: pointer; }
+  .rgpd-checkbox-container a { color: var(--accent); text-decoration: none; }
+  .rgpd-checkbox-container a:hover { opacity: 0.8; }
+
+  /* ── OFFRES ── */
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .offer-card {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 2.5rem 2rem; border-radius: 8px;
+    display: flex; flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .offer-card:hover { transform: translateY(-5px); border-color: var(--text-muted); }
+  .offer-card.featured { border-color: var(--accent); background: var(--surface-light); position: relative; }
+  .offer-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    font-size: 0.75rem; font-weight: 600; padding: 0.3rem 1rem; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .offer-name { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .offer-price { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .offer-price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); font-family: 'Inter', sans-serif; }
+  .offer-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; min-height: 50px; line-height: 1.6; }
+  .offer-features { list-style: none; margin-bottom: 2rem; flex-grow: 1; }
+  .offer-feature {
+    font-size: 0.9rem; padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border); color: var(--text-muted);
+    display: flex; gap: 0.6rem; align-items: flex-start;
+  }
+  .offer-feature::before { content: '✓'; color: var(--accent); flex-shrink: 0; }
+  .offer-card.featured .offer-feature { border-color: rgba(255,255,255,0.05); }
+  .offer-delay { font-size: 0.78rem; color: var(--accent); font-weight: 600; margin-bottom: 1rem; letter-spacing: 0.05em; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .contact-detail { font-size: 1rem; margin-bottom: 1.2rem; color: var(--text-muted); }
+  .contact-detail strong { color: var(--text-main); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+  .contact-detail a { color: var(--accent); text-decoration: none; }
+
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.9rem; border: 1px solid var(--border); border-radius: 4px;
+    background: var(--surface); font-family: 'Inter', sans-serif; color: var(--text-main); outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 4rem; display: flex; justify-content: space-between;
+    align-items: flex-start; border-top: 1px solid var(--border);
+    font-size: 0.85rem; color: var(--text-muted);
+  }
+  .footer-links { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+  .footer-link { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-stats { grid-template-columns: 1fr 1fr; border-top: none; gap: 1rem; margin-top: 3rem; }
+    .stat-box { border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+    .targets-grid, .split-section, .cards-grid, .contact-grid, .auto-features { grid-template-columns: 1fr; gap: 1.5rem; }
+    .form-row-lm { grid-template-columns: 1fr; }
+    .auto-inner { padding: 2rem 1.5rem; }
+    .auto-cta { flex-direction: column; align-items: flex-start; }
+    footer { flex-direction: column; text-align: center; align-items: center; gap: 1.5rem; padding: 2rem 1.5rem; }
+    .footer-links { align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="22" fill="#ff5500"/>
+      <path d="M30 28 h40 v11 h-28 v10 h20 v11 h-20 v11 h28 v11 h-40 z" fill="#0a0a0c"/>
+    </svg>
+    ELYTAYMASS
+  </a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#offres">Tarifs</a></li>
+    <li><a href="#contact" class="nav-cta">Devis gratuit</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <span class="section-label">Création de sites web — Gers & Landes (32 / 40)</span>
+    <h1>Votre entreprise mérite d'être <em>trouvée sur Google.</em></h1>
+    <p class="hero-sub">Je crée des sites internet clairs et professionnels pour les artisans et commerçants du Gers et des Landes. Un site qui travaille pour vous 24h/24 — livré en 5 jours.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">Obtenir un devis gratuit</a>
+      <a href="#offres" class="btn btn-outline">Voir les tarifs</a>
+    </div>
+    <div class="hero-badges">
+      <span class="hero-badge">📍 Nogaro, Gers</span>
+      <span class="hero-badge">⭐ Malt</span>
+      <span class="hero-badge">⭐ ComeUp</span>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-box">
+      <span class="stat-num">350€</span>
+      <span class="stat-label">Site vitrine clé en main</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">5 j.</span>
+      <span class="stat-label">Délai de livraison</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">Gers<br>& Landes</span>
+      <span class="stat-label">Zone d'intervention</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">SIRET</span>
+      <span class="stat-label">938 706 363 00018<br>Micro-entrepreneur déclaré</span>
+    </div>
+  </div>
+</header>
+
+<!-- POUR QUI -->
+<section id="services">
+  <span class="section-label">Pour qui ?</span>
+  <h2 class="section-title">Vous travaillez bien.<br>Vos clients doivent pouvoir vous trouver.</h2>
+  <p class="section-sub">Un client sur deux cherche un artisan ou un commerce sur Google avant d'appeler. Sans site internet, vous n'existez pas pour eux.</p>
+
+  <div class="targets-grid">
+    <div class="target-card">
+      <span class="target-icon">🔧</span>
+      <h3>Artisans du bâtiment</h3>
+      <p>Plombiers, électriciens, maçons, menuisiers, peintres… Montrez vos réalisations, vos coordonnées et votre zone d'intervention.</p>
+    </div>
+    <div class="target-card">
+      <span class="target-icon">🏪</span>
+      <h3>Commerçants & restaurateurs</h3>
+      <p>Horaires, menus, localisation, avis clients. Tout ce qu'un client cherche avant de se déplacer.</p>
+    </div>
+    <div class="target-card">
+      <span class="target-icon">💼</span>
+      <h3>Professions libérales & services</h3>
+      <p>Thérapeutes, coiffeurs, agents immobiliers, consultants… Un site crédible pour rassurer et convertir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CE QUE JE FAIS -->
+<section style="background: var(--surface);">
+  <div class="split-section">
+    <div>
+      <span class="section-label">Création de site internet</span>
+      <h2 class="section-title">Un site simple, rapide, et qui convainc.</h2>
+      <p class="section-sub">Pas de jargon, pas de superflu. Je crée un site qui présente clairement votre activité, vos contacts et vos réalisations — optimisé pour être trouvé sur Google.</p>
+
+      <ul class="feature-list">
+        <li><span class="check">✓</span> Site lisible et agréable sur mobile, tablette et ordinateur.</li>
+        <li><span class="check">✓</span> Référencement Google local (SEO) intégré dès le départ.</li>
+        <li><span class="check">✓</span> Formulaire de contact pour recevoir des demandes directement.</li>
+        <li><span class="check">✓</span> Mise en ligne rapide — vous êtes visible en moins d'une semaine.</li>
+      </ul>
+    </div>
+
+    <div style="background: var(--surface-light); padding: 3rem; border-radius: 8px; border: 1px solid var(--border);">
+      <span class="auto-tag" style="margin-bottom: 1.2rem; display: inline-block;">Pourquoi un site vous rapporte de l'argent</span>
+      <h3 class="font-display" style="font-size: 1.7rem; margin-bottom: 1.2rem; line-height: 1.2;">Votre site travaille quand vous dormez.</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7;">Un client qui cherche "plombier Nogaro" ou "électricien Aire-sur-l'Adour" à 22h ne peut pas vous appeler. Mais il peut tomber sur votre site, voir vos réalisations, et vous envoyer un message.</p>
+      <ul style="list-style: none; color: var(--text-main); font-size: 0.95rem;">
+        <li style="margin-bottom: 0.9rem; display: flex; gap: 0.8rem;">📍 <span><strong>Visibilité locale :</strong> votre fiche Google My Business optimisée avec votre site.</span></li>
+        <li style="margin-bottom: 0.9rem; display: flex; gap: 0.8rem;">📞 <span><strong>Demandes entrantes :</strong> les clients remplissent le formulaire, vous rappellez.</span></li>
+        <li style="display: flex; gap: 0.8rem;">⭐ <span><strong>Confiance :</strong> un site professionnel, ça rassure avant même le premier contact.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATISATION (section distincte, ciblée PME) -->
+<section class="auto-section" id="automatisation">
+  <div class="auto-inner">
+    <span class="auto-tag">Pour les PME & structures plus importantes</span>
+    <h2>Vous perdez du temps sur des tâches répétitives ?</h2>
+    <p>Je ne suis pas uniquement un créateur de sites. Pour les entreprises avec des processus à optimiser, je conçois des automatisations sur mesure avec Make.com — sans développement lourd ni budget d'agence.</p>
+
+    <div class="auto-features">
+      <div class="auto-feature">
+        <strong>🤖 Automatisation des leads</strong>
+        <span>Vos formulaires alimentent directement votre CRM ou Google Sheets. Zéro saisie manuelle.</span>
+      </div>
+      <div class="auto-feature">
+        <strong>✉️ Emails & relances automatiques</strong>
+        <span>Séquences de suivi client déclenchées automatiquement après chaque interaction.</span>
+      </div>
+      <div class="auto-feature">
+        <strong>📅 Synchronisation agenda & facturation</strong>
+        <span>Vos outils métiers connectés entre eux en temps réel.</span>
+      </div>
+      <div class="auto-feature">
+        <strong>📊 Reporting automatisé</strong>
+        <span>Tableaux de bord générés et envoyés chaque semaine sans intervention.</span>
+      </div>
+    </div>
+
+    <div class="auto-cta">
+      <a href="#contact" class="btn btn-ghost">Discuter de mon projet d'automatisation</a>
+      <span class="auto-note">Devis gratuit — Tarif sur mesure selon la complexité du projet.</span>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNOSTIC -->
+<section class="lead-magnet" id="audit">
+  <span class="section-label">Diagnostic gratuit</span>
+  <h2 class="section-title" style="max-width: 600px; margin: 0 auto 1rem;">Votre entreprise est-elle visible en ligne ?</h2>
+  <p class="section-sub" style="margin: 0 auto 3rem; font-size: 1.05rem;">Répondez à 2 questions — je vous dis exactement ce qui manque.</p>
+
+  <div class="lm-container">
+    <div id="quiz-step">
+      <div class="lm-question">
+        <label>1. Avez-vous une fiche Google My Business active ?</label>
+        <select id="google-maps" class="lm-select">
+          <option value="">Sélectionner...</option>
+          <option value="oui">Oui, ma fiche est à jour</option>
+          <option value="non">Non, ou je ne suis pas certain</option>
+        </select>
+      </div>
+      <div class="lm-question">
+        <label>2. Avez-vous un site internet fonctionnel sur mobile ?</label>
+        <select id="mobile-site" class="lm-select">
+          <option value="">Sélectionner...</option>
+          <option value="oui">Oui, mon site est récent et adapté</option>
+          <option value="non">Non, pas de site ou site vieillissant</option>
+        </select>
+      </div>
+      <button onclick="calculateScore()" class="btn btn-primary lm-btn">Voir mon diagnostic</button>
+    </div>
+
+    <div id="result-step" class="hidden">
+      <div class="lm-result-box">
+        <p id="result-message" class="lm-result-text"></p>
+      </div>
+
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Pour recevoir des recommandations personnalisées, laissez vos coordonnées :</p>
+
+      <form id="lead-magnet-form" name="lead-magnet-visibilite" data-netlify="true">
+        <input type="hidden" name="form-name" value="lead-magnet-visibilite" />
+        <input type="hidden" id="hidden-result" name="diagnostic_resultat" value="" />
+
+        <div class="form-row-lm" style="margin-bottom: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.4rem;">Nom de l'entreprise *</label>
+            <input type="text" name="entreprise" class="lm-input" placeholder="ex: Plomberie Dupont" required>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.4rem;">Secteur d'activité *</label>
+            <select name="activite" class="lm-select" required>
+              <option value="">Sélectionner...</option>
+              <option value="artisanat">Artisanat / Bâtiment</option>
+              <option value="commerce">Commerce / Restauration</option>
+              <option value="liberal">Profession libérale / Santé</option>
+              <option value="services">Services aux entreprises</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-lm" style="margin-bottom: 1.5rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.4rem;">E-mail *</label>
+            <input type="email" name="email" class="lm-input" placeholder="contact@..." required>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.4rem;">Téléphone (optionnel)</label>
+            <input type="tel" name="telephone" class="lm-input" placeholder="06 XX XX XX XX">
+          </div>
+        </div>
+
+        <div class="rgpd-checkbox-container">
+          <input type="checkbox" id="rgpd-audit" name="rgpd_consent" required>
+          <label for="rgpd-audit">
+            J'accepte que mes données soient utilisées par ELYTAYMASS pour l'envoi de mon diagnostic, conformément aux <a href="Mention légal.html" target="_blank">mentions légales</a>.
+          </label>
+        </div>
+
+        <button type="submit" id="lm-submit-btn" class="btn btn-light lm-btn">Recevoir mon diagnostic</button>
+      </form>
+
+      <div id="lm-success-msg" class="hidden lm-result-box" style="border-left-color: #10b981; margin-top: 1rem; margin-bottom: 0; background: rgba(16, 185, 129, 0.08);">
+        <p class="lm-result-text" style="color: #10b981;">✓ Reçu ! Je vous envoie vos recommandations dans les plus brefs délais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRES -->
+<section id="offres">
+  <span class="section-label">Tarifs</span>
+  <h2 class="section-title">Des offres claires, sans surprise.</h2>
+  <p class="section-sub">Tout est inclus dans le prix affiché. Pas de frais cachés, pas de mauvaise surprise.</p>
+
+  <div class="cards-grid">
+    <div class="offer-card">
+      <h3 class="offer-name">Site Vitrine Essentiel</h3>
+      <div class="offer-price">350<span>€ TTC</span></div>
+      <div class="offer-delay">⚡ Livré en 5 jours</div>
+      <p class="offer-desc">L'essentiel pour exister sur internet et être trouvé par vos clients locaux.</p>
+      <ul class="offer-features">
+        <li class="offer-feature">Site 1 à 3 pages, adapté mobile</li>
+        <li class="offer-feature">Vos coordonnées & horaires en avant</li>
+        <li class="offer-feature">Formulaire de contact intégré</li>
+        <li class="offer-feature">Référencement Google de base (SEO)</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Demander un devis</a>
+    </div>
+
+    <div class="offer-card featured">
+      <div class="offer-badge">Le plus demandé</div>
+      <h3 class="offer-name">Site Pro WordPress</h3>
+      <div class="offer-price">650<span>€ TTC</span></div>
+      <div class="offer-delay">⚡ Livré en 7 à 10 jours</div>
+      <p class="offer-desc">Un site complet que vous pouvez mettre à jour vous-même, optimisé pour le référencement.</p>
+      <ul class="offer-features">
+        <li class="offer-feature">Site administrable jusqu'à 6 pages</li>
+        <li class="offer-feature">SEO technique & optimisation locale</li>
+        <li class="offer-feature">Fiche Google My Business configurée</li>
+        <li class="offer-feature">Galerie photos & avis clients</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Démarrer le projet</a>
+    </div>
+
+    <div class="offer-card">
+      <h3 class="offer-name">Maintenance Mensuelle</h3>
+      <div class="offer-price">39<span>€ / mois</span></div>
+      <div class="offer-delay">🔒 Sans engagement</div>
+      <p class="offer-desc">Je m'occupe de tout : mises à jour, sécurité, modifications mineures.</p>
+      <ul class="offer-features">
+        <li class="offer-feature">Mises à jour & sécurité incluses</li>
+        <li class="offer-feature">2 modifications de contenu / mois</li>
+        <li class="offer-feature">Sauvegarde hebdomadaire du site</li>
+        <li class="offer-feature">Support par WhatsApp</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--surface); border-bottom: none;">
+  <div class="contact-grid">
+    <div>
+      <span class="section-label">Contact</span>
+      <h2 class="section-title">Parlons de votre projet.</h2>
+      <p class="section-sub" style="margin-bottom: 2.5rem;">Que ce soit pour un site vitrine, une refonte ou un projet d'automatisation — décrivez-moi votre besoin, je vous réponds sous 24h.</p>
+
+      <div class="contact-detail">
+        <strong>Email</strong>
+        <a href="mailto:tarik.elytaymass@gmail.com">tarik.elytaymass@gmail.com</a>
+      </div>
+      <div class="contact-detail">
+        <strong>WhatsApp / Téléphone</strong>
+        <a href="tel:+33770029825">07 70 02 98 25</a>
+      </div>
+      <div class="contact-detail">
+        <strong>Zone d'intervention</strong>
+        Nogaro (Gers, 32) — Gers & Landes en présentiel<br>
+        Reste de la France en remote
+      </div>
+    </div>
+
+    <form class="contact-form" method="post" name="contact-v2" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact-v2" />
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label>Votre nom ou entreprise</label>
+          <input type="text" name="nom" placeholder="ex: Plomberie Martin" required>
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" name="telephone" placeholder="06 XX XX XX XX" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="contact@..." required>
+      </div>
+      <div class="form-group">
+        <label>Ce qui vous intéresse</label>
+        <select name="besoin" required>
+          <option value="">Sélectionner...</option>
+          <option value="vitrine">Site vitrine (350€)</option>
+          <option value="pro">Site Pro WordPress (650€)</option>
+          <option value="maintenance">Maintenance mensuelle (39€/mois)</option>
+          <option value="automatisation">Automatisation / Make.com</option>
+          <option value="autre">Autre demande</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Votre message</label>
+        <textarea name="message" placeholder="Décrivez votre activité et ce que vous cherchez à accomplir..." required></textarea>
+      </div>
+
+      <div class="rgpd-checkbox-container">
+        <input type="checkbox" id="rgpd-contact" name="rgpd_consent_contact" required>
+        <label for="rgpd-contact">
+          En soumettant ce formulaire, j'accepte que mes données soient utilisées par ELYTAYMASS dans le cadre de ma demande, conformément aux <a href="Mention légal.html" target="_blank">mentions légales</a>.
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%;">Envoyer ma demande</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <strong>ELYTAYMASS</strong> — Création Web & Automatisation<br>
+    SIRET : 938 706 363 00018 — Micro-entrepreneur, Nogaro (32)
+  </div>
+  <div class="footer-links">
+    <a href="Mention légal.html" class="footer-link">Mentions légales & RGPD</a>
+    <span>© 2026 ELYTAYMASS. Tous droits réservés.</span>
+  </div>
+</footer>
+
+<script>
+function calculateScore() {
+  const maps = document.getElementById('google-maps').value;
+  const site = document.getElementById('mobile-site').value;
+  if (!maps || !site) { alert("Merci de répondre aux deux questions pour obtenir votre diagnostic."); return; }
+
+  const quizStep = document.getElementById('quiz-step');
+  const resultStep = document.getElementById('result-step');
+  const resultMessage = document.getElementById('result-message');
+  const hiddenResult = document.getElementById('hidden-result');
+  let message = "";
+
+  if (maps === "non" && site === "non") {
+    message = "⚠️ Situation critique : vous êtes quasiment invisible en ligne. Sans fiche Google ni site internet, vous ratez la majorité des clients qui cherchent un professionnel comme vous dans votre zone. Un site vitrine + une fiche Google configurée peuvent changer la donne en quelques jours.";
+  } else if (maps === "oui" && site === "non") {
+    message = "📈 Vous êtes trouvable, mais pas convaincant : votre fiche Google attire des visiteurs, mais sans site, ils n'ont aucune raison de vous choisir plutôt qu'un concurrent. Un site professionnel transformerait ces visites en appels.";
+  } else if (maps === "non" && site === "oui") {
+    message = "🔍 Vous avez un site mais personne ne le trouve : sans fiche Google My Business, vous ratez toutes les recherches locales (\"plombier près de moi\", etc.). Configurer votre fiche gratuitement + optimiser votre site pour le SEO local est la priorité.";
+  } else {
+    message = "✅ Bonnes bases ! Vous avez les fondations. L'étape suivante : optimiser votre site pour convertir davantage de visiteurs en clients, et potentiellement automatiser la gestion de vos demandes entrantes.";
+  }
+
+  resultMessage.textContent = message;
+  hiddenResult.value = message;
+  quizStep.classList.add('hidden');
+  resultStep.classList.remove('hidden');
+}
+
+// Formulaire lead magnet
+const leadMagnetForm = document.getElementById('lead-magnet-form');
+if (leadMagnetForm) {
+  leadMagnetForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('lm-submit-btn');
+    btn.textContent = 'Envoi en cours...';
+    btn.disabled = true;
+    fetch('/', {
+      method: 'POST',
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(e.target)).toString()
+    })
+    .then(() => {
+      e.target.classList.add('hidden');
+      document.querySelector('.lm-result-box').classList.add('hidden');
+      document.getElementById('lm-success-msg').classList.remove('hidden');
+    })
+    .catch(() => {
+      alert("Erreur lors de l'envoi. Merci de réessayer.");
+      btn.textContent = "Recevoir mon diagnostic";
+      btn.disabled = false;
+    });
+  });
+}
+
+// Formulaire contact
+const contactForm = document.querySelector('form[name="contact-v2"]');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Envoi en cours...';
+    btn.disabled = true;
+    fetch('/', {
+      method: 'POST',
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(e.target)).toString()
+    })
+    .then(() => {
+      btn.textContent = '✓ Message envoyé !';
+      btn.style.background = '#10b981';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 4000);
+    })
+    .catch(() => {
+      alert("Erreur lors de l'envoi. Contactez-moi directement par WhatsApp.");
+      btn.textContent = originalText;
+      btn.disabled = false;
+    });
+  });
+}
+</script>
+
+</body>
+</html>
