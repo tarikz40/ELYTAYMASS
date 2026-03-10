@@ -485,8 +485,7 @@
 
       <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Pour recevoir des recommandations personnalisées, laissez vos coordonnées :</p>
 
-      <form id="lead-magnet-form" name="lead-magnet-visibilite" data-netlify="true">
-        <input type="hidden" name="form-name" value="lead-magnet-visibilite" />
+      <form id="lead-magnet-form" name="lead-magnet-visibilite">
         <input type="hidden" id="hidden-result" name="diagnostic_resultat" value="" />
 
         <div class="form-row-lm" style="margin-bottom: 1rem;">
@@ -766,26 +765,50 @@ function calculateScore() {
 }
 
 // Formulaire lead magnet
+// Formulaire lead magnet - Envoi vers Make
 const leadMagnetForm = document.getElementById('lead-magnet-form');
 if (leadMagnetForm) {
   leadMagnetForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    console.log('📝 Lead magnet soumis');
+    
     const btn = document.getElementById('lm-submit-btn');
+    const originalText = btn.textContent;
     btn.textContent = 'Envoi en cours...';
     btn.disabled = true;
-    fetch('/', {
+    
+    const data = {
+      entreprise: leadMagnetForm.querySelector('[name="entreprise"]').value,
+      activite: leadMagnetForm.querySelector('[name="activite"]').value,
+      email: leadMagnetForm.querySelector('[name="email"]').value,
+      telephone: leadMagnetForm.querySelector('[name="telephone"]').value,
+      diagnostic_resultat: leadMagnetForm.querySelector('[name="diagnostic_resultat"]').value,
+      google_maps: document.getElementById('google-maps').value,
+      mobile_site: document.getElementById('mobile-site').value,
+      date: new Date().toLocaleString('fr-FR')
+    };
+    
+    console.log('📤 Envoi lead magnet vers Make:', data);
+    
+    fetch('https://hook.eu1.make.com/rw3uigsupa6ldy9tgtqfd87i8urvbz1l', {
       method: 'POST',
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(new FormData(e.target)).toString()
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     })
-    .then(() => {
-      e.target.classList.add('hidden');
-      document.querySelector('.lm-result-box').classList.add('hidden');
-      document.getElementById('lm-success-msg').classList.remove('hidden');
+    .then(function(response) {
+      console.log('📥 Réponse lead magnet:', response.status);
+      if (response.ok) {
+        leadMagnetForm.classList.add('hidden');
+        document.querySelector('.lm-result-box').classList.add('hidden');
+        document.getElementById('lm-success-msg').classList.remove('hidden');
+      } else {
+        throw new Error('Erreur: ' + response.status);
+      }
     })
-    .catch(() => {
+    .catch(function(error) {
+      console.error('❌ Erreur lead magnet:', error);
       alert("Erreur lors de l'envoi. Merci de réessayer.");
-      btn.textContent = "Recevoir mon diagnostic";
+      btn.textContent = originalText;
       btn.disabled = false;
     });
   });
